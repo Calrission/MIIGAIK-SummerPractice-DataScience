@@ -2,7 +2,7 @@ import os.path
 
 import pandas as pd
 
-from homework_1.constants import OUTPUT_DIR
+from homeworks.homework_1.constants import OUTPUT_DIR
 
 
 def prepare():

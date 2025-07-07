@@ -1,6 +1,6 @@
 import os.path
 
-from homework_1.constants import MOCK_DIR
+from homeworks.homework_1.constants import MOCK_DIR
 
 
 def mock(filename: str) -> str:

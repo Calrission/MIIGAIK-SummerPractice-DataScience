@@ -6,9 +6,9 @@ import html_datasource
 import parser
 import saver
 import cache
-from homework_1 import utils
-from homework_1.constants import SAVE_DIR, OUTPUT_DIR
-from homework_1.csv_builder import DataFrameCsvBuilder
+from homeworks.homework_1 import utils
+from homeworks.homework_1.constants import SAVE_DIR, OUTPUT_DIR
+from homeworks.homework_1.csv_builder import DataFrameCsvBuilder
 
 
 def test_get_index_html():

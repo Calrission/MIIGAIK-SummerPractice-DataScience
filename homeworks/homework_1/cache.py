@@ -1,5 +1,5 @@
 import os.path
-from homework_1.constants import SAVE_DIR
+from homeworks.homework_1.constants import SAVE_DIR
 
 
 def prepare():

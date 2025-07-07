@@ -1,9 +1,9 @@
 import uuid
 from requests import RequestException
 import html_datasource
-from homework_1 import cache, parser, utils, saver
-from homework_1.constants import INDEX
-from homework_1.csv_builder import DataFrameCsvBuilder
+from homeworks.homework_1 import cache, utils, parser, saver
+from homeworks.homework_1.constants import INDEX
+from homeworks.homework_1.csv_builder import DataFrameCsvBuilder
 
 if cache.check_is_saved(INDEX):
     index_content = cache.read(INDEX)

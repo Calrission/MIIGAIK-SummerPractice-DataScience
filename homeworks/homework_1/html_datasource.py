@@ -1,5 +1,5 @@
 import requests
-from homework_1.constants import VARIANT_URL, HEADERS, SLEEP_TIME
+from homeworks.homework_1.constants import VARIANT_URL, HEADERS
 
 
 def get_index_html() -> str:
