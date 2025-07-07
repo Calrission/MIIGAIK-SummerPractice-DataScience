@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-with open('assets/theory_1.html', 'r') as file:
+with open('assets/sample_1.html', 'r') as file:
     content = file.read()
     soup = BeautifulSoup(content, "html.parser")
 
