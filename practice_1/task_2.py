@@ -20,8 +20,7 @@ else:
                 title = company.find("div", attrs={"class": "company-list-item-title"}).text
                 contacts = company.find("div", attrs={"class": "company-info-contacts"})
                 contacts_values = contacts.find_all("div", attrs={"class": "company-info-contacts-row-value"})
-                print([i.find("a").text for i in contacts_values])
-                data.append((img, title, contacts_values))
+                data.append((img, title))
             except Exception as e:
                 print("Something went wrong")
                 print(e)
