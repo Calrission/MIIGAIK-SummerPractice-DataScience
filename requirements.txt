@@ -5,3 +5,5 @@ pandas
 openpyxl
 matplotlib
 seaborn
+sweetviz
+numpy==1.26.4
