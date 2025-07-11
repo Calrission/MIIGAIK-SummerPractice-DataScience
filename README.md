@@ -15,7 +15,8 @@ https://ratcatcher.ru/summer/
 |   └── homework_2/
 ├── practices/ - практики с теорией
 |   ├── practice_1/
-|   └── practice_2/
+|   ├── practice_2/
+|   └── practice_3/
 └── requirements.txt - все зависимости
 ```
 
