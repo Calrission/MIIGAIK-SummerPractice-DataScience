@@ -7,3 +7,7 @@ matplotlib
 seaborn
 sweetviz
 numpy==1.26.4
+shap
+graphviz
+scikit-learn
+ipywidgets
