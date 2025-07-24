@@ -1,3 +1,6 @@
+import pickle
+from sklearn.metrics import accuracy_score, recall_score, confusion_matrix
+import seaborn as sns
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -8,9 +11,13 @@ import plotly.express as px
 data = np.load('shap_values.npz', allow_pickle=True)
 df = pd.read_csv("dataset.csv")
 
+with open('model.pkl', 'rb') as f:
+    final_model = pickle.load(f)
+
 shap_values = data['shap_values']
 feature_names = data['feature_names'].tolist()
 X_test = data['X_test']
+y_test = data['y_test']
 
 st.title("Струков Артемий Викторович_2023-ФГиИБ-ПИ-1б_21_Классификация_заёмщиков")
 st.text("Данный дата-сет представляет упрощенную версию того, что могло быть в реальных данных, используемых для задач "
@@ -163,5 +170,87 @@ fig.update_traces(
     textfont_color='black',
 )
 
-
 st.plotly_chart(fig, use_container_width=False)
+
+import plotly.graph_objects as go
+import numpy as np
+
+
+y_test_pred = final_model.predict(X_test)
+cm = confusion_matrix(y_test, y_test_pred)
+classes = final_model.classes_
+
+st.subheader("Интерактивная матрица ошибок")
+classes = final_model.classes_
+
+annotations = []
+for i in range(len(classes)):
+    for j in range(len(classes)):
+        value = cm[i, j]
+        percent = f"{value/cm.sum()*100:.1f}%" if cm.sum() > 0 else "0%"
+        annotations.append(
+            dict(
+                x=j, y=i,
+                text=f"<b>{value}</b><br>({percent})",
+                showarrow=False,
+                font=dict(color='white' if cm[i, j] > cm.max()/2 else 'black'),
+                align="center"
+            )
+        )
+
+# Создаем фигуру
+fig = go.Figure(data=go.Heatmap(
+    z=cm,
+    x=classes,
+    y=classes,
+    colorscale='Blues',
+    hoverongaps=False,
+    hovertemplate="Истинный класс: %{y}<br>Предсказанный класс: %{x}<br>Количество: %{z}<extra></extra>",
+    colorbar=dict(title="Количество"),
+))
+
+# Настраиваем оформление
+fig.update_layout(
+    title="Матрица ошибок классификации",
+    xaxis_title="Предсказанные классы",
+    yaxis_title="Истинные классы",
+    annotations=annotations,
+    autosize=True,
+    height=600,
+    margin=dict(l=50, r=50, b=50, t=80),
+    hoverlabel=dict(bgcolor="black", font_size=14),
+    title_font=dict(size=20),
+    font=dict(family="Arial"),
+)
+
+# Добавляем кнопки для переключения режимов
+fig.update_layout(
+    updatemenus=[
+        dict(
+            type="buttons",
+            direction="right",
+            buttons=list([
+                dict(
+                    args=[{"z": [cm], "annotations": [annotations]}],
+                    label="Абсолютные значения",
+                    method="update"
+                ),
+                dict(
+                    args=[{"z": [cm.astype('float')/cm.sum(axis=1)[:, np.newaxis]],
+                          "annotations": []}],
+                    label="Нормализованные",
+                    method="update"
+                )
+            ]),
+            pad={"r": 10, "t": 10},
+            showactive=True,
+            x=0.5,
+            xanchor="center",
+            y=1.15,
+            yanchor="top"
+        )
+    ]
+)
+
+# Отображаем график
+st.plotly_chart(fig, use_container_width=True)
