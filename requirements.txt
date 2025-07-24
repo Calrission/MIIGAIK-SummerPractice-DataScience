@@ -11,3 +11,4 @@ shap
 graphviz
 scikit-learn
 ipywidgets
+streamlit
