@@ -12,3 +12,4 @@ graphviz
 scikit-learn
 ipywidgets
 streamlit
+plotly
