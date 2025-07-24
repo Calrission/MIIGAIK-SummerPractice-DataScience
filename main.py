@@ -1,13 +1,12 @@
 import pickle
-from sklearn.metrics import accuracy_score, recall_score, confusion_matrix
-import seaborn as sns
+from sklearn.metrics import confusion_matrix
 import numpy as np
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import shap
 import plotly.express as px
-
+import plotly.graph_objects as go
 data = np.load('shap_values.npz', allow_pickle=True)
 df = pd.read_csv("dataset.csv")
 
@@ -172,10 +171,6 @@ fig.update_traces(
 
 st.plotly_chart(fig, use_container_width=False)
 
-import plotly.graph_objects as go
-import numpy as np
-
-
 y_test_pred = final_model.predict(X_test)
 cm = confusion_matrix(y_test, y_test_pred)
 classes = final_model.classes_
@@ -211,7 +206,7 @@ fig = go.Figure(data=go.Heatmap(
 
 # Настраиваем оформление
 fig.update_layout(
-    title="Матрица ошибок классификации",
+    title="   ",
     xaxis_title="Предсказанные классы",
     yaxis_title="Истинные классы",
     annotations=annotations,
